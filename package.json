@@ -9,6 +9,7 @@
     "dayjs": "^1.11.5",
     "mineflayer": "^4.4.0",
     "nodemon": "^2.0.19",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "standard": "^17.0.0"
   }
 }
