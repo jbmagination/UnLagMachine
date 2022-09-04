@@ -1,11 +1,8 @@
 {
-  "name": "mineoverflow",
+  "name": "unlagmachine",
   "version": "1.0.0",
-  "description": "Minecraft bot for LiveOverflow's server",
+  "description": "UnLagMachine",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "JBMagination",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
