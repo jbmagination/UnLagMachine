@@ -1,7 +1,7 @@
 const mineflayer = require('mineflayer')
 const dayjs = require('dayjs')
 const fs = require('fs')
-const config = require('./config.tmp.json')
+const config = require('./config.json')
 let bot
 let timer
 let oldTimer
