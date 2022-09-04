@@ -56,7 +56,7 @@ async function bindEvents(bot) {
 
   bot.on("spawn", () => {
     bot.chat(
-      "Hello, world! I'm online. Made by JBMagination#5512 - type ${config.prefix}help for a list of commands"
+      `Hello, world! I'm online. Made by JBMagination#5512 - type ${config.prefix}help for a list of commands`
     );
     setTimeout(() => {
       introMessageSent = true;
