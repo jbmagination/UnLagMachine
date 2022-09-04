@@ -10,7 +10,7 @@ let online = true;
 timer = null;
 
 let knownBots = [
-    "uptime_check", 
+    "uptime_check",
     "_shadowing",
     "bozo01001100",
     "Mr_Sus_",
@@ -44,7 +44,7 @@ async function startBot() {
             host: config.server.host,
             port: config.server.port,
             username: config.server.username
-        }); 
+        });
     }
     bindEvents(bot);
 }
@@ -76,8 +76,8 @@ async function bindEvents(bot) {
             console.log(message)
             if ((message == 'help') || (message.startsWith('help '))) bot.whisper(username, `${config.prefix}online, ${config.prefix}hashcheck, ${config.prefix}seed, ${config.prefix}source`);
             else if ((message == 'seed') || (message.startsWith('seed '))) bot.whisper(username, 'The seed of the server is LiveOverflow61374546 (or 64149200) - See the original video "They Cracked My Server!" at https://youtu.be/gSxcDYCK_lY')
-            else if ((message == 'source') || (message.startsWith('source '))) bot.whisper(username, 'The source code for the bot can be found at https://github.com/jbmagination/')
-            
+            else if ((message == 'source') || (message.startsWith('source '))) bot.whisper(username, 'The source code for the bot can be found at https://github.com/jbmagination/UnLagMachine')
+
             //#region | +hashcheck
             else if ((message.startsWith('hashcheck'))) {
 
@@ -114,9 +114,9 @@ async function bindEvents(bot) {
                     "694C5570162B8E7394344BD3E79BDBE613F6A0B3F3C7DD7CB0C2D0F50210DCFF"
                 ]
                 //#endregion
-                
+
                 const args = message.slice('hashcheck'.length).trim().split(' ')
-                if (args[0]) { 
+                if (args[0]) {
                     if (args[0].toUpperCase() == (("52BD67D817FD3A62ACF32E4EDC84A5210C160F63A9323C13FDE213FAF5E1A7B7") || ("C712BF5213704EC4D11790730480579B3FD9E20F8B4F38D61ABE9D2D76499746"))) {
                         console.log(`${username} scanned the real IP hash`)
                         bot.whisper(username, "This hash matches the real IP! If this hash is of the IP you're connected with, then you're safe.")
@@ -158,7 +158,7 @@ async function bindEvents(bot) {
                     if ((knownBots.includes(player)) || (player == bot.username)) {
                         console.log(`Adding ${player} to bot count`)
                         botCount = botCount + 1
-                        if (botCount == 1) bots = "bot"; 
+                        if (botCount == 1) bots = "bot";
                     } else {
                         console.log(`Adding ${player} to player count`)
                         playerCount = playerCount + 1
@@ -181,7 +181,7 @@ async function bindEvents(bot) {
         if (dayjs(oldTimer).unix() == dayjs(timer).unix()) return;
         if (message.startsWith(`${config.prefix}`)) commands(username, message, false)
         else if (message.startsWith('!bot')) bot.chat(`Hello, ${username}! Run ${config.prefix}help to get a list of commands.`)
-        else if ((message.includes("timeouts") || message.includes("timed out")) && (username !== bot.username)) bot.chat(`This is an automated response. ${username}, if you're getting frequent timeouts then you may be on a honeypot. Run ${config.prefix}hashcheck to figure out whether or not you are.`) 
+        else if ((message.includes("timeouts") || message.includes("timed out")) && (username !== bot.username)) bot.chat(`This is an automated response. ${username}, if you're getting frequent timeouts then you may be on a honeypot. Run ${config.prefix}hashcheck to figure out whether or not you are.`)
     })
 
     bot.on('whisper', (username, message) => {
