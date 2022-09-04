@@ -1,12 +1,11 @@
 const mineflayer = require('mineflayer')
 const dayjs = require('dayjs')
 const fs = require('fs')
-const config = require('./config.json')
+const config = require('./config.tmp.json')
 let bot
 let timer
 let oldTimer
 let introMessageSent = false
-const online = true
 timer = null
 
 const knownBots = [
@@ -29,7 +28,7 @@ const whitelistedBots = ['Mr_Sus_', 'matdoesdev']
 const blockedUsers = []
 
 async function startBot () {
-  if (online) {
+  if (config.server.online) {
     bot = mineflayer.createBot({
       host: config.server.host,
       port: config.server.port,
@@ -76,7 +75,8 @@ async function bindEvents (bot) {
     else if (
       knownBots.includes(username) &&
       !whitelistedBots.includes(username)
-    ) {} else if (blockedUsers.includes(username)) return
+    ) {
+    } else if (blockedUsers.includes(username)) return
     else {
       if (message.startsWith(`${config.prefix}`)) {
         message = message.substring(config.prefix.length)
@@ -91,7 +91,7 @@ async function bindEvents (bot) {
       } else if (message == 'seed' || message.startsWith('seed ')) {
         bot.whisper(
           username,
-          'The seed of the server is LiveOverflow61374546 (or 64149200) - See the original video \'They Cracked My Server!\' at https://youtu.be/gSxcDYCK_lY'
+          "The seed of the server is LiveOverflow61374546 (or 64149200) - See the original video 'They Cracked My Server!' at https://youtu.be/gSxcDYCK_lY"
         )
       } else if (message == 'source' || message.startsWith('source ')) {
         bot.whisper(
@@ -139,33 +139,36 @@ async function bindEvents (bot) {
         if (args[0]) {
           if (
             args[0].toUpperCase() ==
-            ('52BD67D817FD3A62ACF32E4EDC84A5210C160F63A9323C13FDE213FAF5E1A7B7' ||
-              'C712BF5213704EC4D11790730480579B3FD9E20F8B4F38D61ABE9D2D76499746')
+              '52BD67D817FD3A62ACF32E4EDC84A5210C160F63A9323C13FDE213FAF5E1A7B7' ||
+            args[0].toUpperCase() ==
+              'C712BF5213704EC4D11790730480579B3FD9E20F8B4F38D61ABE9D2D76499746'
           ) {
             console.log(`${username} scanned the real IP hash`)
             bot.whisper(
               username,
-              'This hash matches the real IP! If this hash is of the IP you\'re connected with, then you\'re safe.'
+              "This hash matches the real IP! If this hash is of the IP you're connected with, then you're safe."
             )
           } else if (
             args[0].toUpperCase() ==
-            ('099FDEAF848A3286FF6EBDB082283571F8DC72B0F3F692A666940BB3C2B4F371' ||
-              'C7D7E3CDD244865B043519E47AE0D923E4C8BD8DDB8934E110B5C0E3E8006774')
+              '099FDEAF848A3286FF6EBDB082283571F8DC72B0F3F692A666940BB3C2B4F371' ||
+            args[0].toUpperCase() ==
+              'C7D7E3CDD244865B043519E47AE0D923E4C8BD8DDB8934E110B5C0E3E8006774'
           ) {
             console.log(`${username} scanned the old IP hash`)
             bot.whisper(
               username,
-              'This hash matches the *old* IP! If this hash is of the IP you\'re connected with, then you may be connected through a honeypot.'
+              "This hash matches the *old* IP! If this hash is of the IP you're connected with, then you may be connected through a honeypot."
             )
           } else if (
             args[0].toUpperCase() ==
-            ('12CA17B49AF2289436F303E0166030A21E525D266E209267433801A8FD4071A0' ||
-              '723EC3738011F5417ABC2CFCD0AB6DA6ECC67E97918FC189EE4E5C98152CEA2A')
+              '12CA17B49AF2289436F303E0166030A21E525D266E209267433801A8FD4071A0' ||
+            args[0].toUpperCase() ==
+              '723EC3738011F5417ABC2CFCD0AB6DA6ECC67E97918FC189EE4E5C98152CEA2A'
           ) {
             console.log(`${username} scanned the loopback hash`)
             bot.whisper(
               username,
-              'This hash is a loopback! You\'re definitely not connecting through this IP (...probably)'
+              "This hash is a loopback! You're definitely not connecting through this IP (...probably)"
             )
           } else if (honeypotHashes.includes(args[0].toUpperCase())) {
             console.log(`${username} scanned a known honeypot IP hash`)
@@ -179,7 +182,7 @@ async function bindEvents (bot) {
             )
             bot.whisper(
               username,
-              'This hash is not known, but if this hash is of the IP you\'re connected with, then it\'s almost guaranteed that you\'re connected through a honeypot.'
+              "This hash is not known, but if this hash is of the IP you're connected with, then it's almost guaranteed that you're connected through a honeypot."
             )
             bot.whisper(
               username,
@@ -240,7 +243,9 @@ async function bindEvents (bot) {
     oldTimer = timer
     timer = dayjs()
     if (dayjs(oldTimer).unix() == dayjs(timer).unix()) return
-    if (message.startsWith(`${config.prefix}`)) { commands(username, message, false) } else if (message.startsWith('!bot')) {
+    if (message.startsWith(`${config.prefix}`)) {
+      commands(username, message, false)
+    } else if (message.startsWith('!bot')) {
       bot.chat(
         `Hello, ${username}! Run ${config.prefix}help to get a list of commands.`
       )
