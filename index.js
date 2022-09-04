@@ -77,39 +77,46 @@ async function bindEvents (bot) {
   })
 
   async function commands (username, message, whisper) {
-    let whisperMessage;
-    if (whisper == true) whisperMessage = "whisper"; else whisperMessage = "chat message"
+    let whisperMessage
+    if (whisper == true) whisperMessage = 'whisper'
+    else whisperMessage = 'chat message'
     if (message.startsWith(`${config.prefix} `)) return
     else if (
       knownBots.includes(username) &&
       !whitelistedBots.includes(username)
     ) {
-      console.log(`${username} attempted to run "${config.prefix}${message}" in a ${whisperMessage} but they're a bot`)  
-      return
-    }
-    else if (blockedUsers.includes(username)) {
-      console.log(`${username} attempted to run "${config.prefix}${message}" in a ${whisperMessage} but they're blocked`)  
-      return
-    }
-    else {
+      console.log(
+        `${username} attempted to run "${config.prefix}${message}" in a ${whisperMessage} but they're a bot`
+      )
+    } else if (blockedUsers.includes(username)) {
+      console.log(
+        `${username} attempted to run "${config.prefix}${message}" in a ${whisperMessage} but they're blocked`
+      )
+    } else {
       if (message.startsWith(`${config.prefix}`)) {
         message = message.substring(config.prefix.length)
       }
 
       if (message == 'help' || message.startsWith('help ')) {
-        console.log(`${username} ran "${config.prefix}${message}" in a ${whisperMessage}`)  
+        console.log(
+          `${username} ran "${config.prefix}${message}" in a ${whisperMessage}`
+        )
         bot.whisper(
           username,
           `${config.prefix}online, ${config.prefix}hashcheck, ${config.prefix}seed, ${config.prefix}source`
         )
       } else if (message == 'seed' || message.startsWith('seed ')) {
-        console.log(`${username} ran "${config.prefix}${message}" in a ${whisperMessage}`)  
+        console.log(
+          `${username} ran "${config.prefix}${message}" in a ${whisperMessage}`
+        )
         bot.whisper(
           username,
           "The seed of the server is LiveOverflow61374546 (or 64149200) - See the original video 'They Cracked My Server!' at https://youtu.be/gSxcDYCK_lY"
         )
       } else if (message == 'source' || message.startsWith('source ')) {
-        console.log(`${username} ran "${config.prefix}${message}" in a ${whisperMessage}`)  
+        console.log(
+          `${username} ran "${config.prefix}${message}" in a ${whisperMessage}`
+        )
         bot.whisper(
           username,
           'The source code for the bot can be found at https://github.com/jbmagination/UnLagMachine'
@@ -117,8 +124,10 @@ async function bindEvents (bot) {
       }
       // #region | +hashcheck
       else if (message.startsWith('hashcheck')) {
-        console.log(`${username} ran "${config.prefix}${message}" in a ${whisperMessage}`)  
-        
+        console.log(
+          `${username} ran "${config.prefix}${message}" in a ${whisperMessage}`
+        )
+
         // #region | Known Honeypot Hashes
         const honeypotHashes = [
           '946C329913A360435724E3C587931A1900B47EEC1EFDA7BD9139AF923405A293',
@@ -218,8 +227,10 @@ async function bindEvents (bot) {
 
       // #region | +online
       else if (message === 'online') {
-        console.log(`${username} ran "${config.prefix}${message}" in a ${whisperMessage}`)  
-        
+        console.log(
+          `${username} ran "${config.prefix}${message}" in a ${whisperMessage}`
+        )
+
         let botCount
         let playerCount
         let playerList
@@ -273,7 +284,7 @@ async function bindEvents (bot) {
       (message.includes('timeouts') || message.includes('timed out')) &&
       username !== bot.username
     ) {
-      console.log(`${username} triggered the automatic timeout response`)  
+      console.log(`${username} triggered the automatic timeout response`)
       bot.chat(
         `This is an automated response. ${username}, if you're getting frequent timeouts then you may be on a honeypot. Run ${config.prefix}hashcheck to figure out whether or not you are.`
       )
